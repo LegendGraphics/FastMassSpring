@@ -19,7 +19,7 @@
 *
 * @section DESCRIPTION
 *
-* Constraint for fast mass spring.
+* Constraint for projective dynamics.
 
 =========================================================================*/
 
@@ -32,11 +32,9 @@ public:
   Constraint();
   virtual ~Constraint();
 
-  virtual void init() = 0;
-  virtual void buildMatrix() = 0;
-  virtual void buildRightHand() = 0;
-  virtual void updateRightHand() = 0;
-  virtual void updateProjection() = 0;
+  // the interface for solver
+  virtual void update() = 0;
+  virtual void projection() = 0;
 
 private:
   Constraint(const Constraint&); // not implemented

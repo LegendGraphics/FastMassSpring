@@ -7,7 +7,9 @@ FIND_PATH( EIGEN_DIR "eigen" )
 FILE( GLOB Project_SRCS "src/*.*" )
 SET( Project_INCLUDE_DIR src/ )
 
-INCLUDE_DIRECTORIES( ${Project_INCLUDE_DIR} )
+INCLUDE_DIRECTORIES( ${Project_INCLUDE_DIR}
+                     ${BOOST_DIR}
+                     ${EIGEN_DIR} )
 ADD_EXECUTABLE( ${PROJECT_NAME}
                 ${Project_SRCS} )
 TARGET_LINK_LIBRARIES( ${PROJECT_NAME} )

@@ -19,13 +19,34 @@
 *
 * @section DESCRIPTION
 *
-* Solver for fast mass spring.
+* The ultimate goal of these files is to build a framework for a light-weight
+* version of "projective dynamics"
+*
+* Projective dynamics is a method for nonlinear optimization. It separates
+* linear part and non-linear part of the problem into global step and local
+* step. It first look for a projection for all constraints (local step, solve
+* many small non-linear subproblems). Then it combines all the projections
+* together and build a large sparse linear system to move one step. These two
+* steps are repeated until convergence.
 
 =========================================================================*/
 
 #ifndef Solver_H
 #define Solver_H
 
+#include "BasicHeader.h"
 
+class Solver
+{
+public:
+  Solver();
+  ~Solver();
+
+  Eigen::VectorXf P_Opt;
+
+private:
+  Solver(const Solver&); // not implemented
+  void operator = (const Solver&); // not implemented
+};
 
 #endif
