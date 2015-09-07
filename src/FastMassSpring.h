@@ -52,35 +52,40 @@ public:
 
   void init();
   void initEdgeGraph(
-    FACELIST& face_list,
-    VERTEXLIST& vertex_list,
-    ADJLIST& vertex_share_faces);
+    FaceList& face_list,
+    VertexList& vertex_list,
+    AdjList& vertex_share_faces);
   void buildMatrix();
-  void fillLMatrix(
-    std::vector<Eigen::Triplet<float> >& triplets,
-    std::vector<EDGE>& edges, float k);
-  void fillJMatrix(
-    std::vector<Eigen::Triplet<float> >& triplets,
-    std::vector<EDGE>& edges, float k, int edge_counts);
+  void fillLMatrix(TripletList& triplets, Edges& edges);
+  void fillJMatrix(TripletList& triplets, Edges& edges, int edge_counts);
   void computedVector();
+  inline void setkStrech(float k) { this->k_strech = k; };
+  inline void setkBending(float k) { this->k_bending = k; };
+
+
   virtual void update();
   virtual void projection();
+  virtual void getRightHand(VectorX& right_hand);
+  virtual void getLinearSys(SparseMatrix& linear_sys);
+  virtual void setSolver(Solver* solver);
 
 private:
   bool findShareVertex(
     int& cross_pi, int& cross_pj,
     int pi, int pj,
-    ADJLIST& vertex_share_faces, FACELIST& face_list);
+    AdjList& vertex_share_faces, FaceList& face_list);
 
-  std::vector<EDGE> strech_edges;
-  std::vector<EDGE> bending_edges;
+  Edges strech_edges;
+  Edges bending_edges;
   std::vector<float> strech_r_length;
   std::vector<float> bending_r_length;
 
-  Eigen::SparseMatrix<float> L_matrix;
-  Eigen::SparseMatrix<float> J_matrix;
-  Eigen::VectorXf d_vector;
-  Eigen::VectorXf right_hand;
+  SparseMatrix L_strech_matrix;
+  SparseMatrix L_bending_matrix;
+  SparseMatrix J_strech_matrix;
+  SparseMatrix J_bending_matrix;
+  VectorX d_vector;
+  VectorX right_hand;
 
   Solver* solver;
 

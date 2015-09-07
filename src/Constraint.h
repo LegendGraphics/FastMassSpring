@@ -26,6 +26,10 @@
 #ifndef Constraint_H
 #define Constraint_H
 
+#include "BasicHeader.h"
+
+class Solver;
+
 class Constraint
 {
 public:
@@ -35,6 +39,9 @@ public:
   // the interface for solver
   virtual void update() = 0;
   virtual void projection() = 0;
+  virtual void getRightHand(VectorX& right_hand) = 0;
+  virtual void getLinearSys(SparseMatrix& linear_sys) = 0;
+  virtual void setSolver(Solver* solver) = 0;
 
 private:
   Constraint(const Constraint&); // not implemented

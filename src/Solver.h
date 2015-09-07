@@ -36,13 +36,32 @@
 
 #include "BasicHeader.h"
 
+class Constraint;
+
 class Solver
 {
 public:
   Solver();
   ~Solver();
 
-  Eigen::VectorXf P_Opt;
+  void addConstraint(Constraint* constraint);
+  void initCholesky();
+  void solve();
+  void runOneStep();
+  void setRightHand();
+  void setSystemMatrix();
+  void runGlobalStep();
+  void runLocalStep();
+
+  VectorX P_Opt;
+  SimplicialCholesky chol;
+  SparseMatrix system_matrix;
+  VectorX right_hand;
+  size_t problem_size;
+  int max_iter;
+
+private:
+  std::vector<Constraint* > constraints;
 
 private:
   Solver(const Solver&); // not implemented

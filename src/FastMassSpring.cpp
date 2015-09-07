@@ -1,9 +1,12 @@
 #include "FastMassSpring.h"
 #include "Solver.h"
 
+#include <iostream>
+
 FastMassSpring::FastMassSpring()
 {
   this->init();
+  std::cout << "create a fast mass spring sys.\n";
 }
 
 FastMassSpring::~FastMassSpring()
@@ -21,9 +24,9 @@ void FastMassSpring::init()
 }
 
 void FastMassSpring::initEdgeGraph(
-  FACELIST& face_list,
-  VERTEXLIST& vertex_list,
-  ADJLIST& vertex_share_faces)
+  FaceList& face_list,
+  VertexList& vertex_list,
+  AdjList& vertex_share_faces)
 {
   this->P_Num = vertex_list.size() / 3;
 
@@ -31,21 +34,21 @@ void FastMassSpring::initEdgeGraph(
   this->strech_edges.clear();
   {
     int ptid[3] = {0, 0, 0};
-    for (decltype(face_list.size()) i = 0; i < face_list.size(); ++i)
+    for (decltype(face_list.size()) i = 0; i < face_list.size() / 3; ++i)
     {
       ptid[0] = face_list[3 * i + 0];
       ptid[1] = face_list[3 * i + 1];
       ptid[2] = face_list[3 * i + 2];
       // the order of start point and end point doesn't matter
       this->strech_edges.push_back(
-        ptid[0] < ptid[1] ? EDGE(ptid[0], ptid[1]) : EDGE(ptid[1], ptid[0]));
+        ptid[0] < ptid[1] ? Edge(ptid[0], ptid[1]) : Edge(ptid[1], ptid[0]));
       this->strech_edges.push_back(
-        ptid[1] < ptid[2] ? EDGE(ptid[1], ptid[2]) : EDGE(ptid[2], ptid[1]));
+        ptid[1] < ptid[2] ? Edge(ptid[1], ptid[2]) : Edge(ptid[2], ptid[1]));
       this->strech_edges.push_back(
-        ptid[2] < ptid[0] ? EDGE(ptid[2], ptid[0]) : EDGE(ptid[0], ptid[2]));
+        ptid[2] < ptid[0] ? Edge(ptid[2], ptid[0]) : Edge(ptid[0], ptid[2]));
     }
     std::sort(this->strech_edges.begin(), this->strech_edges.end());
-    std::vector<EDGE>::iterator iter = 
+    std::vector<Edge>::iterator iter = 
       std::unique(this->strech_edges.begin(), this->strech_edges.end());
     this->strech_edges.erase(iter, strech_edges.end());
     this->strech_edges.shrink_to_fit();
@@ -75,7 +78,7 @@ void FastMassSpring::initEdgeGraph(
       {
         this->bending_edges.push_back(
           cross_pi < cross_pj ? 
-            EDGE(cross_pi, cross_pj) : EDGE(cross_pj, cross_pi));
+            Edge(cross_pi, cross_pj) : Edge(cross_pj, cross_pi));
       }
     }
 
@@ -99,72 +102,71 @@ void FastMassSpring::initEdgeGraph(
 
 void FastMassSpring::buildMatrix()
 {
-  std::vector<Eigen::Triplet<float> > L_triplets;
-  this->fillLMatrix(L_triplets, this->strech_edges, this->k_strech);
-  this->fillLMatrix(L_triplets, this->bending_edges, this->k_bending);
-  this->L_matrix.resize(3 * this->P_Num, 3 * this->P_Num);
-  this->L_matrix.setFromTriplets(L_triplets.begin(), L_triplets.end());
+  TripletList L_triplets;
+  this->L_strech_matrix.resize(3 * this->P_Num, 3 * this->P_Num);
+  this->fillLMatrix(L_triplets, this->strech_edges);
+  this->L_strech_matrix.setFromTriplets(L_triplets.begin(), L_triplets.end());
 
-  std::vector<Eigen::Triplet<float> > J_triplets;
-  this->fillJMatrix(
-    J_triplets,
-    this->strech_edges, this->k_strech, 0);
-  this->fillJMatrix(
-    J_triplets,
-    this->bending_edges, this->k_bending, this->strech_edges.size());
-  this->J_matrix.resize(
+  L_triplets.clear();
+  this->L_bending_matrix.resize(3 * this->P_Num, 3 * this->P_Num);
+  this->fillLMatrix(L_triplets, this->bending_edges);
+  this->L_bending_matrix.setFromTriplets(L_triplets.begin(), L_triplets.end());
+
+  TripletList J_triplets;
+  this->J_strech_matrix.resize(
     3 * this->P_Num,
     3 * (this->strech_edges.size() + this->bending_edges.size()));
-  this->J_matrix.setFromTriplets(J_triplets.begin(), J_triplets.end());
+  this->fillJMatrix(J_triplets, this->strech_edges, 0);
+  this->J_strech_matrix.setFromTriplets(J_triplets.begin(), J_triplets.end());
+
+  J_triplets.clear();
+  this->J_bending_matrix.resize(
+    3 * this->P_Num,
+    3 * (this->strech_edges.size() + this->bending_edges.size()));
+  this->fillJMatrix(J_triplets, this->bending_edges, this->strech_edges.size());
+  this->J_bending_matrix.setFromTriplets(J_triplets.begin(), J_triplets.end());
 }
 
-void FastMassSpring::fillLMatrix(
-  std::vector<Eigen::Triplet<float> >& triplets,
-  std::vector<EDGE>& edges, float k)
+void FastMassSpring::fillLMatrix(TripletList& triplets, Edges& edges)
 {
   for (auto& i : edges)
   {
     for (int j = 0; j < 3; ++j)
     {
-      triplets.push_back(Eigen::Triplet<float>(3 * i.first + j, 3 * i.first + j, k));
-      triplets.push_back(Eigen::Triplet<float>(3 * i.first + j, 3 * i.second + j, -k));
-      triplets.push_back(Eigen::Triplet<float>(3 * i.second + j, 3 * i.first + j, -k));
-      triplets.push_back(Eigen::Triplet<float>(3 * i.second + j, 3 * i.second + j, k));
+      triplets.push_back(Triplet(3 * i.first + j, 3 * i.first + j, 1));
+      triplets.push_back(Triplet(3 * i.first + j, 3 * i.second + j, -1));
+      triplets.push_back(Triplet(3 * i.second + j, 3 * i.first + j, -1));
+      triplets.push_back(Triplet(3 * i.second + j, 3 * i.second + j, 1));
     }
   }
 }
 
-void FastMassSpring::fillJMatrix(
-  std::vector<Eigen::Triplet<float> >& triplets,
-  std::vector<EDGE>& edges, float k, int edge_counts)
+void FastMassSpring::fillJMatrix(TripletList& triplets, Edges& edges, int edge_counts)
 {
   for (decltype(edges.size()) i = 0; i != edges.size(); ++i)
   {
     for (int j = 0; j < 3; ++j)
     {
-      triplets.push_back(
-        Eigen::Triplet<float>(3 * edges[i].first + j, 3 * (i + edge_counts) + j, k));
-      triplets.push_back(
-        Eigen::Triplet<float>(3 * edges[i].second + j, 3 * (i + edge_counts) + j, -k));
+      triplets.push_back(Triplet(3 * edges[i].first + j, 3 * (i + edge_counts) + j, 1));
+      triplets.push_back(Triplet(3 * edges[i].second + j, 3 * (i + edge_counts) + j, -1));
     }
   }
 }
 
 void FastMassSpring::computedVector()
 {
-  this->d_vector = 
-    Eigen::VectorXf::Zero(
+  this->d_vector = VectorX::Zero(
     3 * (this->strech_edges.size() + this->bending_edges.size()));
 
   size_t id_edge = 0;
   for (auto& i : this->strech_edges)
   {
-    Eigen::Vector3f p12;
+    Vector3 p12;
     for (int j = 0; j < 3; ++j)
     {
       p12[j] =
-        this->solver->P_Opt[3 * i.first + 0]
-      - this->solver->P_Opt[3 * i.second + 0];
+        this->solver->P_Opt[3 * i.first + j]
+      - this->solver->P_Opt[3 * i.second + j];
     }
     p12.normalize();
     this->d_vector[3 * id_edge + 0] = this->strech_r_length[id_edge] * p12[0];
@@ -175,12 +177,12 @@ void FastMassSpring::computedVector()
   size_t id_edge_offset = 0;
   for (auto& i : this->bending_edges)
   {
-    Eigen::Vector3f p12;
+    Vector3 p12;
     for (int j = 0; j < 3; ++j)
     {
       p12[j] =
-        this->solver->P_Opt[3 * i.first + 0]
-      - this->solver->P_Opt[3 * i.second + 0];
+        this->solver->P_Opt[3 * i.first + j]
+      - this->solver->P_Opt[3 * i.second + j];
     }
     p12.normalize();
     this->d_vector[3 * id_edge + 0] = this->bending_r_length[id_edge_offset] * p12[0];
@@ -194,7 +196,7 @@ void FastMassSpring::computedVector()
 bool FastMassSpring::findShareVertex(
   int& cross_pi, int& cross_pj,
   int pi, int pj,
-  ADJLIST& vertex_share_faces, FACELIST& face_list)
+  AdjList& vertex_share_faces, FaceList& face_list)
 {
   std::vector<int> share_face;
   std::set_intersection(
@@ -243,5 +245,24 @@ void FastMassSpring::projection()
 
 void FastMassSpring::update()
 {
-  this->right_hand = this->J_matrix * this->d_vector;
+  this->right_hand =
+    (this->k_strech * this->J_strech_matrix
+   + this->k_bending * this->J_bending_matrix)
+   * this->d_vector;
+}
+
+void FastMassSpring::getRightHand(VectorX& right_hand)
+{
+  right_hand = this->right_hand;
+}
+
+void FastMassSpring::getLinearSys(SparseMatrix& linear_sys)
+{
+  linear_sys = this->k_strech * this->L_strech_matrix
+             + this->k_bending * this->L_bending_matrix;
+}
+
+void FastMassSpring::setSolver(Solver* solver)
+{
+  this->solver = solver;
 }
