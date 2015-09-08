@@ -90,20 +90,20 @@ void NormalGuided::fillVMoveMatrix(
       vertex_list[3 * i + 1],
       vertex_list[3 * i + 2] };
 
-    vertical_move_triplets.push_back(Triplet(3 * i + 0, 3 * i + 0, n[1] * n[1] + n[2] * n[2]));
+    vertical_move_triplets.push_back(Triplet(3 * i + 0, 3 * i + 0, 1 - n[0] * n[0]));
     vertical_move_triplets.push_back(Triplet(3 * i + 0, 3 * i + 1, -n[0] * n[1]));
     vertical_move_triplets.push_back(Triplet(3 * i + 0, 3 * i + 2, -n[0] * n[2]));
-    vertical_move(3 * i + 0) = (n[1] * n[1] + n[2] * n[2]) * pt[0] - n[0] * n[1] * pt[1] - n[0] * n[2] * pt[2];
+    vertical_move(3 * i + 0) = (1 - n[0] * n[0]) * pt[0] - n[0] * n[1] * pt[1] - n[0] * n[2] * pt[2];
 
     vertical_move_triplets.push_back(Triplet(3 * i + 1, 3 * i + 0, -n[1] * n[0]));
-    vertical_move_triplets.push_back(Triplet(3 * i + 1, 3 * i + 1, n[0] * n[0] + n[2] * n[2]));
+    vertical_move_triplets.push_back(Triplet(3 * i + 1, 3 * i + 1, 1 - n[1] * n[1]));
     vertical_move_triplets.push_back(Triplet(3 * i + 1, 3 * i + 2, -n[1] * n[2]));
-    vertical_move(3 * i + 1) = -n[1] * n[0] * pt[0] + (n[0] * n[0] + n[2] * n[2]) * pt[1] - n[1] * n[2] * pt[2];
+    vertical_move(3 * i + 1) = -n[1] * n[0] * pt[0] + (1 - n[1] * n[1]) * pt[1] - n[1] * n[2] * pt[2];
 
     vertical_move_triplets.push_back(Triplet(3 * i + 2, 3 * i + 0, -n[2] * n[0]));
     vertical_move_triplets.push_back(Triplet(3 * i + 2, 3 * i + 1, -n[2] * n[1]));
-    vertical_move_triplets.push_back(Triplet(3 * i + 2, 3 * i + 2, n[0] * n[0] + n[1] * n[1]));
-    vertical_move(3 * i + 2) = -n[2] * n[0] * pt[0] - n[2] * n[1] * pt[1] + (n[0] * n[0] + n[1] * n[1]) * pt[2];
+    vertical_move_triplets.push_back(Triplet(3 * i + 2, 3 * i + 2, 1 - n[2] * n[2]));
+    vertical_move(3 * i + 2) = -n[2] * n[0] * pt[0] - n[2] * n[1] * pt[1] + (1 - n[2] * n[2]) * pt[2];
   }
 
   vertical_move_matrix.resize(3 * P_Num, 3 * P_Num);

@@ -12,9 +12,12 @@ public:
   ProjConstraint();
   virtual ~ProjConstraint();
 
+  // ray_list stores the ray direction the origin of the
+  // ray_list if the camera origin in world coordinate
   void initMatrix(
     STLVectorf& ray_list,
-    STLVectori& ray_id_list);
+    STLVectori& ray_id_list,
+    Vector3f cam_ori);
   inline void setLamdProj(float lamd) { this->lamd_proj = lamd; };
 
   virtual void init();
@@ -29,6 +32,7 @@ private:
   int P_Num;
 
   SparseMatrix constraint_matrix;
+  VectorXf right_hand;
 
   Solver* solver;
 
