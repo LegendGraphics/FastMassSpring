@@ -3,12 +3,20 @@
 
 NormalGuided::NormalGuided()
 {
-
+  this->init();
+  std::cout << "create a set of normal constraint.\n";
 }
 
 NormalGuided::~NormalGuided()
 {
 
+}
+
+void NormalGuided::init()
+{
+  this->lamd_normal = 0.0;
+  this->lamd_vertical_move = 0.0;
+  this->P_Num = 0;
 }
 
 void NormalGuided::initMatrix(
@@ -70,7 +78,7 @@ void NormalGuided::fillVMoveMatrix(
   NormalList& normal_list)
 {
   TripletList vertical_move_triplets;
-  vertical_move = VectorX::Zero(3 * P_Num);
+  vertical_move = VectorXf::Zero(3 * P_Num);
 
   for (int i = 0; i < P_Num; ++i)
   {
@@ -126,15 +134,15 @@ void NormalGuided::getConnectedPtID(int i_pt, int points_in_face[3], int connect
 
 void NormalGuided::projection()
 {
-
+  // no need to do projection
 }
 
 void NormalGuided::update()
 {
-
+  // no need to update
 }
 
-void NormalGuided::getRightHand(VectorX& right_hand)
+void NormalGuided::getRightHand(VectorXf& right_hand)
 {
   right_hand = this->lamd_vertical_move * this->vertical_move;
 }

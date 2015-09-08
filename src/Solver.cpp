@@ -82,10 +82,10 @@ void Solver::setSystemMatrix()
 
 void Solver::setRightHand()
 {
-  this->right_hand = VectorX::Zero(problem_size);
+  this->right_hand = VectorXf::Zero(problem_size);
   for (decltype(this->constraints.size()) i = 0; i < this->constraints.size(); ++i)
   {
-    VectorX temp_right_hand;
+    VectorXf temp_right_hand;
     this->constraints[i]->getRightHand(temp_right_hand);
     this->right_hand += temp_right_hand;
   }

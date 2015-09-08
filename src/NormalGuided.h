@@ -1,3 +1,31 @@
+/*=========================================================================
+
+* @file
+* @author  Lin Ma <majcjc@gmail.com>
+* @version 1.0
+*
+* @section LICENSE
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License as
+* published by the Free Software Foundation; either version 2 of
+* the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful, but
+* WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+* General Public License for more details at
+* http://www.gnu.org/copyleft/gpl.html
+*
+* @section DESCRIPTION
+*
+* Constraint for face normal. This class give a type of constraint about
+* desired new face normal to the mesh. With this constraint added into
+* the solver, the deformed model will have very close face normal towards
+* the given new normal.
+
+=========================================================================*/
+
 #ifndef NormalGuided_H
 #define NormalGuided_H
 
@@ -10,7 +38,7 @@ class NormalGuided : public Constraint
 {
 public:
   NormalGuided();
-  ~NormalGuided();
+  virtual ~NormalGuided();
 
   void initMatrix(
     FaceList& face_list,
@@ -28,9 +56,10 @@ public:
   inline void setLamdNormal(float lamd) { this->lamd_normal = lamd; };
   inline void setLamdVMove(float lamd) { this->lamd_vertical_move = lamd; };
 
+  virtual void init();
   virtual void update();
   virtual void projection();
-  virtual void getRightHand(VectorX& right_hand);
+  virtual void getRightHand(VectorXf& right_hand);
   virtual void getLinearSys(SparseMatrix& linear_sys);
   virtual void setSolver(Solver* solver);
 
@@ -43,7 +72,7 @@ private:
 
   SparseMatrix normal_matrix;
   SparseMatrix vertical_move_matrix;
-  VectorX vertical_move;
+  VectorXf vertical_move;
 
 private:
   NormalGuided(const NormalGuided&);

@@ -28,6 +28,10 @@
 * many small non-linear subproblems). Then it combines all the projections
 * together and build a large sparse linear system to move one step. These two
 * steps are repeated until convergence.
+*
+* Reference: Sofien Bouaziz, Mario Deuss, Yuliy Schwartzburg, Thibaut Weise,
+* Mark Pauly "Shape-Up: Shaping Discrete Geometry with Projections" Computer
+* Graphics Forum (Proceedings of SGP), 2012
 
 =========================================================================*/
 
@@ -53,10 +57,10 @@ public:
   void runGlobalStep();
   void runLocalStep();
 
-  VectorX P_Opt;
+  VectorXf P_Opt;
   SimplicialCholesky chol;
   SparseMatrix system_matrix;
-  VectorX right_hand;
+  VectorXf right_hand;
   size_t problem_size;
   int max_iter;
 
