@@ -37,9 +37,10 @@ public:
   virtual ~Constraint();
 
   // the interface for solver
+  virtual void init() = 0;
   virtual void update() = 0;
   virtual void projection() = 0;
-  virtual void getRightHand(VectorX& right_hand) = 0;
+  virtual void getRightHand(VectorXf& right_hand) = 0;
   virtual void getLinearSys(SparseMatrix& linear_sys) = 0;
   virtual void setSolver(Solver* solver) = 0;
 

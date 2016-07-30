@@ -155,13 +155,13 @@ void FastMassSpring::fillJMatrix(TripletList& triplets, Edges& edges, int edge_c
 
 void FastMassSpring::computedVector()
 {
-  this->d_vector = VectorX::Zero(
+  this->d_vector = VectorXf::Zero(
     3 * (this->strech_edges.size() + this->bending_edges.size()));
 
   size_t id_edge = 0;
   for (auto& i : this->strech_edges)
   {
-    Vector3 p12;
+    Vector3f p12;
     for (int j = 0; j < 3; ++j)
     {
       p12[j] =
@@ -177,7 +177,7 @@ void FastMassSpring::computedVector()
   size_t id_edge_offset = 0;
   for (auto& i : this->bending_edges)
   {
-    Vector3 p12;
+    Vector3f p12;
     for (int j = 0; j < 3; ++j)
     {
       p12[j] =
@@ -251,7 +251,7 @@ void FastMassSpring::update()
    * this->d_vector;
 }
 
-void FastMassSpring::getRightHand(VectorX& right_hand)
+void FastMassSpring::getRightHand(VectorXf& right_hand)
 {
   right_hand = this->right_hand;
 }

@@ -33,6 +33,11 @@
 * Tiantian Liu, Adam W. Bargteil, James F. O'Brien, Ladislav Kavan. 
 * "Fast Simulation of Mass-Spring Systems" ACM Transaction on Graphics 32(6)
 * [Proceedings of SIGGRAPH Asia], 2013.
+*
+* My implementation doesn't fullly support simulation. If you want to do a 
+* cloth simulation, you still need to add some external forces (like gravity,
+* user difined handle or collision) into the system as another kind of
+* constraints. Please refer to the original paper for more details.
 
 =========================================================================*/
 
@@ -50,7 +55,6 @@ public:
   FastMassSpring();
   virtual ~FastMassSpring();
 
-  void init();
   void initEdgeGraph(
     FaceList& face_list,
     VertexList& vertex_list,
@@ -62,10 +66,10 @@ public:
   inline void setkStrech(float k) { this->k_strech = k; };
   inline void setkBending(float k) { this->k_bending = k; };
 
-
+  virtual void init();
   virtual void update();
   virtual void projection();
-  virtual void getRightHand(VectorX& right_hand);
+  virtual void getRightHand(VectorXf& right_hand);
   virtual void getLinearSys(SparseMatrix& linear_sys);
   virtual void setSolver(Solver* solver);
 
@@ -84,8 +88,8 @@ private:
   SparseMatrix L_bending_matrix;
   SparseMatrix J_strech_matrix;
   SparseMatrix J_bending_matrix;
-  VectorX d_vector;
-  VectorX right_hand;
+  VectorXf d_vector;
+  VectorXf right_hand;
 
   Solver* solver;
 
