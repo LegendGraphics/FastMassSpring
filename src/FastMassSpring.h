@@ -55,6 +55,7 @@ public:
   FastMassSpring();
   virtual ~FastMassSpring();
 
+  void initEdgeGraph(FaceList& face_list, VertexList& vertex_list);
   void initEdgeGraph(
     FaceList& face_list,
     VertexList& vertex_list,

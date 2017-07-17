@@ -23,6 +23,20 @@ void FastMassSpring::init()
   this->solver = NULL;
 }
 
+void FastMassSpring::initEdgeGraph(FaceList& face_list, VertexList& vertex_list)
+{
+  AdjList vertex_share_faces;
+  vertex_share_faces.resize(vertex_list.size() / 3);
+  for (decltype(face_list.size()) i = 0; i < face_list.size() / 3; ++i)
+  {
+   vertex_adj_faces[face_list[3 * i + 0]].push_back(i);
+   vertex_adj_faces[face_list[3 * i + 1]].push_back(i);
+   vertex_adj_faces[face_list[3 * i + 2]].push_back(i);
+  }
+
+  this->initEdgeGraph(face_list, vertex_list, vertex_share_faces);
+}
+
 void FastMassSpring::initEdgeGraph(
   FaceList& face_list,
   VertexList& vertex_list,
