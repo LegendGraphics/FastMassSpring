@@ -1,14 +1,14 @@
 cmake_minimum_required( VERSION 2.8 )
 project( FastMassSpring )
 
-FIND_PATH( BOOST_DIR "boost" )
-FIND_PATH( EIGEN_DIR "eigen" )
+SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+FIND_PACKAGE(3rdParty REQUIRED)
 
 FILE( GLOB Project_SRCS "src/*.*" )
 SET( Project_INCLUDE_DIR src/ )
 
 INCLUDE_DIRECTORIES( ${Project_INCLUDE_DIR}
-                     ${BOOST_DIR}
                      ${EIGEN_DIR} )
 ADD_EXECUTABLE( ${PROJECT_NAME}
                 ${Project_SRCS} )

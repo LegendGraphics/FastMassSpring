@@ -1,0 +1,397 @@
+{
+  "variant": {
+    "label": "Debug",
+    "keywordSettings": {
+      "buildType": "debug"
+    },
+    "description": "Emit debug information without performing optimizations"
+  },
+  "activeEnvironments": [],
+  "codeModel": {
+    "configurations": [
+      {
+        "name": "Debug",
+        "projects": [
+          {
+            "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+            "name": "FastMassSpring",
+            "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+            "targets": [
+              {
+                "artifacts": [
+                  "E:/linsrc/fms/FastMassSpring-build/Debug/FastMassSpring.exe",
+                  "E:/linsrc/fms/FastMassSpring-build/Debug/FastMassSpring.lib",
+                  "E:/linsrc/fms/FastMassSpring-build/Debug/FastMassSpring.pdb"
+                ],
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "src/BasicHeader.h",
+                      "src/Constraint.h",
+                      "src/FastMassSpring.h",
+                      "src/NormalGuided.h",
+                      "src/ProjConstraint.h",
+                      "src/SimCloth.h",
+                      "src/Solver.h",
+                      "CMakeLists.txt"
+                    ]
+                  },
+                  {
+                    "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1  ",
+                    "includePath": [
+                      {
+                        "path": "E:/linsrc/fms/FastMassSpring/src"
+                      },
+                      {
+                        "path": "E:/linsrc/fms/FastMassSpring/cmake/../3rdparty/eigen"
+                      }
+                    ],
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/Constraint.cpp",
+                      "src/FastMassSpring.cpp",
+                      "src/NormalGuided.cpp",
+                      "src/ProjConstraint.cpp",
+                      "src/SimCloth.cpp",
+                      "src/Solver.cpp",
+                      "src/main.cpp"
+                    ]
+                  }
+                ],
+                "fullName": "FastMassSpring.exe",
+                "linkFlags": "/machine:x64 /debug /INCREMENTAL /subsystem:console",
+                "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
+                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkerLanguage": "CXX",
+                "name": "FastMassSpring",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../FastMassSpring-build/CMakeFiles/fb317440040560a8486d854d04b4b80a/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "UTILITY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Release",
+        "projects": [
+          {
+            "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+            "name": "FastMassSpring",
+            "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+            "targets": [
+              {
+                "artifacts": [
+                  "E:/linsrc/fms/FastMassSpring-build/Release/FastMassSpring.exe",
+                  "E:/linsrc/fms/FastMassSpring-build/Release/FastMassSpring.lib",
+                  "E:/linsrc/fms/FastMassSpring-build/Release/FastMassSpring.pdb"
+                ],
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "src/BasicHeader.h",
+                      "src/Constraint.h",
+                      "src/FastMassSpring.h",
+                      "src/NormalGuided.h",
+                      "src/ProjConstraint.h",
+                      "src/SimCloth.h",
+                      "src/Solver.h",
+                      "CMakeLists.txt"
+                    ]
+                  },
+                  {
+                    "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG  ",
+                    "includePath": [
+                      {
+                        "path": "E:/linsrc/fms/FastMassSpring/src"
+                      },
+                      {
+                        "path": "E:/linsrc/fms/FastMassSpring/cmake/../3rdparty/eigen"
+                      }
+                    ],
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/Constraint.cpp",
+                      "src/FastMassSpring.cpp",
+                      "src/NormalGuided.cpp",
+                      "src/ProjConstraint.cpp",
+                      "src/SimCloth.cpp",
+                      "src/Solver.cpp",
+                      "src/main.cpp"
+                    ]
+                  }
+                ],
+                "fullName": "FastMassSpring.exe",
+                "linkFlags": "/machine:x64 /INCREMENTAL:NO /subsystem:console",
+                "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O2 /Ob2 /DNDEBUG",
+                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkerLanguage": "CXX",
+                "name": "FastMassSpring",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../FastMassSpring-build/CMakeFiles/fb317440040560a8486d854d04b4b80a/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "UTILITY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "MinSizeRel",
+        "projects": [
+          {
+            "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+            "name": "FastMassSpring",
+            "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+            "targets": [
+              {
+                "artifacts": [
+                  "E:/linsrc/fms/FastMassSpring-build/MinSizeRel/FastMassSpring.exe",
+                  "E:/linsrc/fms/FastMassSpring-build/MinSizeRel/FastMassSpring.lib",
+                  "E:/linsrc/fms/FastMassSpring-build/MinSizeRel/FastMassSpring.pdb"
+                ],
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "src/BasicHeader.h",
+                      "src/Constraint.h",
+                      "src/FastMassSpring.h",
+                      "src/NormalGuided.h",
+                      "src/ProjConstraint.h",
+                      "src/SimCloth.h",
+                      "src/Solver.h",
+                      "CMakeLists.txt"
+                    ]
+                  },
+                  {
+                    "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG  ",
+                    "includePath": [
+                      {
+                        "path": "E:/linsrc/fms/FastMassSpring/src"
+                      },
+                      {
+                        "path": "E:/linsrc/fms/FastMassSpring/cmake/../3rdparty/eigen"
+                      }
+                    ],
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/Constraint.cpp",
+                      "src/FastMassSpring.cpp",
+                      "src/NormalGuided.cpp",
+                      "src/ProjConstraint.cpp",
+                      "src/SimCloth.cpp",
+                      "src/Solver.cpp",
+                      "src/main.cpp"
+                    ]
+                  }
+                ],
+                "fullName": "FastMassSpring.exe",
+                "linkFlags": "/machine:x64 /INCREMENTAL:NO /subsystem:console",
+                "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /O1 /Ob1 /DNDEBUG",
+                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkerLanguage": "CXX",
+                "name": "FastMassSpring",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../FastMassSpring-build/CMakeFiles/fb317440040560a8486d854d04b4b80a/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "UTILITY"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "RelWithDebInfo",
+        "projects": [
+          {
+            "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+            "name": "FastMassSpring",
+            "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+            "targets": [
+              {
+                "artifacts": [
+                  "E:/linsrc/fms/FastMassSpring-build/RelWithDebInfo/FastMassSpring.exe",
+                  "E:/linsrc/fms/FastMassSpring-build/RelWithDebInfo/FastMassSpring.lib",
+                  "E:/linsrc/fms/FastMassSpring-build/RelWithDebInfo/FastMassSpring.pdb"
+                ],
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "src/BasicHeader.h",
+                      "src/Constraint.h",
+                      "src/FastMassSpring.h",
+                      "src/NormalGuided.h",
+                      "src/ProjConstraint.h",
+                      "src/SimCloth.h",
+                      "src/Solver.h",
+                      "CMakeLists.txt"
+                    ]
+                  },
+                  {
+                    "compileFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG  ",
+                    "includePath": [
+                      {
+                        "path": "E:/linsrc/fms/FastMassSpring/src"
+                      },
+                      {
+                        "path": "E:/linsrc/fms/FastMassSpring/cmake/../3rdparty/eigen"
+                      }
+                    ],
+                    "isGenerated": false,
+                    "language": "CXX",
+                    "sources": [
+                      "src/Constraint.cpp",
+                      "src/FastMassSpring.cpp",
+                      "src/NormalGuided.cpp",
+                      "src/ProjConstraint.cpp",
+                      "src/SimCloth.cpp",
+                      "src/Solver.cpp",
+                      "src/main.cpp"
+                    ]
+                  }
+                ],
+                "fullName": "FastMassSpring.exe",
+                "linkFlags": "/machine:x64 /debug /INCREMENTAL /subsystem:console",
+                "linkLanguageFlags": "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MD /Zi /O2 /Ob1 /DNDEBUG",
+                "linkLibraries": "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+                "linkerLanguage": "CXX",
+                "name": "FastMassSpring",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "EXECUTABLE"
+              },
+              {
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": true,
+                    "sources": [
+                      "../FastMassSpring-build/CMakeFiles/fb317440040560a8486d854d04b4b80a/generate.stamp.rule"
+                    ]
+                  }
+                ],
+                "fullName": "ZERO_CHECK",
+                "name": "ZERO_CHECK",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "UTILITY"
+              },
+              {
+                "buildDirectory": "E:/linsrc/fms/FastMassSpring-build",
+                "fileGroups": [
+                  {
+                    "isGenerated": false,
+                    "sources": [
+                      "CMakeLists.txt"
+                    ]
+                  }
+                ],
+                "fullName": "ALL_BUILD",
+                "name": "ALL_BUILD",
+                "sourceDirectory": "E:/linsrc/fms/FastMassSpring",
+                "type": "UTILITY"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "cookie": "0.5677992826540135",
+    "inReplyTo": "codemodel",
+    "type": "reply"
+  }
+}
