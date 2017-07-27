@@ -32,5 +32,6 @@ void main()
     std::cout << solver->P_Opt.transpose() << std::endl;
 
     delete solver;
+    delete sim;
     delete fms;
 }
