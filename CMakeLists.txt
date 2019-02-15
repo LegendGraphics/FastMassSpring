@@ -1,6 +1,8 @@
 cmake_minimum_required( VERSION 2.8 )
 project( FastMassSpring )
 
+LIST(APPEND CMAKE_CXX_FLAGS         "-std=c++11")
+
 SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 FIND_PACKAGE(3rdParty REQUIRED)

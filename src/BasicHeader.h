@@ -1,10 +1,10 @@
 #ifndef BasicHeader_H
 #define BasicHeader_H
 
-#include <Eigen\Eigen>
-#include <Eigen\Sparse>
-#include <vector>
 #include <iostream>
+#include <vector>
+#include "Eigen/Eigen"
+#include "Eigen/Sparse"
 
 typedef std::pair<int, int> Edge;
 typedef std::vector<std::pair<int, int> > Edges;

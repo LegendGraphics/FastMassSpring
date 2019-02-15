@@ -2,7 +2,7 @@
 #include "FastMassSpring.h"
 #include "SimCloth.h"
 
-void main()
+int main(int argc, char *argv[])
 {
     FastMassSpring* fms = new FastMassSpring;
     SimCloth* sim = new SimCloth;
@@ -34,4 +34,5 @@ void main()
     delete solver;
     delete sim;
     delete fms;
+		return 0;
 }
